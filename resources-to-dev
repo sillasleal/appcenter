@@ -1,0 +1,6 @@
+* manage applications from a public repository(https://appimage.github.io/feed.json)
+* manage applications from a private repository
+* install applications in a local directory (without root, such as mac)
+* automatic update of applications
+* synchronize installed applications using an online account
+* allow you to administer scripts to install applications that are not in a repository
