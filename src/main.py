@@ -677,6 +677,7 @@
 #    Public License instead of this License.  But first, please read
 #    <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 
+from definitions.Directorys import Directorys
 
 if __name__ == "__main__":
-    print "Hello World çç"
+    print Directorys.INSTALL_DIR
