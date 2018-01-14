@@ -1,3 +1,5 @@
+import Repository
+
 class Applications:
     """
     Author 
@@ -11,6 +13,7 @@ class Applications:
     
     def download(self):
         """Download de AppImage"""
+        repository = Repository()
         
     
     def install(self):

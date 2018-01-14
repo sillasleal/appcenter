@@ -1,4 +1,7 @@
 * manage applications from a public repository(https://appimage.github.io/feed.json)
+* only cmd
+* auto create links after install apps and remove too
+* allow install applications like this: appcenter install app from repository
 * manage applications from a private repository
 * install applications in a local directory (without root, such as mac)
 * automatic update of applications
