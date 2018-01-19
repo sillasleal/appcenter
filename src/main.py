@@ -677,7 +677,8 @@
 #    Public License instead of this License.  But first, please read
 #    <http://www.gnu.org/philosophy/why-not-lgpl.html>.
 
-from definitions.Directorys import Directorys
+from interfaces.Cmd import Cmd
 
 if __name__ == "__main__":
-    print Directorys.INSTALL_DIR
+    app = Cmd();
+    app.start()
