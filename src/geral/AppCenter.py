@@ -16,7 +16,7 @@ class AppCenter:
         """Constructor"""
         lang = os.environ["LANG"]
         self.lang = lang
-        file_path = "./dictionaries/"
+        file_path = "%s/../dictionaries/" % os.path.dirname(__file__)
         file_dic = file_path + self.lang + ".json"
         if os.path.exists(file_dic):
             self.dictionary = json.load(open(file_dic))
