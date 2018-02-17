@@ -1,4 +1,8 @@
 {
+    "invalid_action": "Invalid Params",
     "invalid_params": "Invalid Params",
-    "package_not_found": "Package not found"
+    "package_not_found": "Package not found",
+    "filed_install": "Filed install",
+    "success_install": "Success install",
+    "details_package": "Details of package "
 }

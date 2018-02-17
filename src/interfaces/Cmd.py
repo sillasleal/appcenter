@@ -24,13 +24,19 @@ class Cmd(AppCenter):
         if len(sys.argv) < 2:
             print self.translate("invalid_params")
             exit(100)
-        
+            
         action = sys.argv[1]
-        package = sys.argv[2]
+        
+        if len(sys.argv) > 2:
+            package = sys.argv[2]
+        else:
+            package = "nothing"
+            
         actions = {
-            "info": self.repository.get_application_info,
-            "update": self.repository.update,
-            "download": self.repository.download
+            "find": self.repository.show_application_info,
+#            "download": self.repository.download,
+            "install": self.repository.install,
+            "remove": self.repository.remove
         }
         
         if action not in actions:
