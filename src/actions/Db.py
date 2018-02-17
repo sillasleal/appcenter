@@ -12,23 +12,34 @@ class Db(AppCenter):
         AppCenter.__init__(self)
         if not os.path.exists(Directories.LOCAL_DB):
             os.system("mkdir -p %s" % Directories.LOCAL_DB)
-        self.instaled_db_file = Directories.LOCAL_DB + "/instaled.json"
+        self.installed_db_file = Directories.LOCAL_DB + "/installed.json"
         self.local_db_file = Directories.LOCAL_DB + "/repository.json"
     
     def insert_package(self, package_info):
-        """Insert a package in db of instaled apps"""
-        if os.path.exists(self.instaled_db_file):
-            data = json.load(open(self.instaled_db_file))
-        else:
-            json.dump({}, open(self.instaled_db_file, 'w'))
-            data = {}
+        """Insert a package in db of installed apps"""
+        data = self.load_installed_db()
         data[package_info["name"]] = package_info
         data[package_info["name"]]["version"] = package_info["file_download"]
-        json.dump(data, open(self.instaled_db_file, 'w'))
+        json.dump(data, open(self.installed_db_file, 'w'))
         
     def search_package(self, package_name):
-        """Search packeg in instaled apps"""
+        """Search packeg in installed apps"""
+        data = self.load_installed_db()
         
+        if package_name in data:
+            return data[package_name]
+        else:
+            return False
+   
+    def load_installed_db(self):
+        """Load the db of installeds apps"""
+        if os.path.exists(self.installed_db_file):
+            data = json.load(open(self.installed_db_file))
+        else:
+            json.dump({}, open(self.installed_db_file, 'w'))
+            data = {}
+
+        return data
         
     def update_local_db(self, data):
         """Update the local db"""

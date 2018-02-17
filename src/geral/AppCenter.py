@@ -24,11 +24,28 @@ class AppCenter:
             self.dictionary = {}
     
     def translate(self, key, others = {}):
-        """Return de translate of key"""
+        """Return the translate of key"""
         if key in self.dictionary:
-            value = self.dictionary[key]
+            if type(key) == list:
+                #pluralization
+                var = key[2]
+                qt = others[var]
+                if qt != 1:
+                    value = self.dictionary[key[1]]
+                else:
+                    value = self.dictionary[key[0]]
+            else:
+                #normal key
+                value = self.dictionary[key]
+
             for i in others:
-                value.replace("{" + i + "}", others[i])
+                value = value.replace("{" + i + "}", others[i])
+
             return value
         else:
             return key
+        
+    def create_dir(self, directory):
+        """Create a directory on the system"""
+        if not os.path.exists(directory):
+            os.system("mkdir -p %s" % directory)
