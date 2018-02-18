@@ -10,3 +10,5 @@ class Directories:
     TMP_DIR = "/tmp/.appimages"
     
     LOCAL_DB = "%s/.appcenter/db" % os.environ["HOME"]
+    
+    REPO_FILE = "%s/.appcenter/repo.json" % os.environ["HOME"]

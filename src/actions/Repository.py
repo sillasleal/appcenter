@@ -1,7 +1,10 @@
+import os
 import requests
+import json
 
 from geral.AppCenter import AppCenter
 from definitions.Urls import Urls
+from definitions.Directories import Directories
 from actions.Db import Db
 
 class Repository(AppCenter):
@@ -22,8 +25,21 @@ class Repository(AppCenter):
     
     def update(self):
         """Update the local repositories"""
-        response = requests.get(Urls.PUBLIC_REPO)
-        self.db.update_local_db(response.json())
+        if not os.path.exists(Directories.REPO_FILE):
+            repos = [Urls.PUBLIC_REPO]
+            json.dump(repos, open(Directories.REPO_FILE, 'w'))
+        else:
+            repos = json.load(open(Directories.REPO_FILE))
+
+        data = {}
+        for url in repos:
+            if "items" in data:
+                tmp = requests.get(url).json()
+                data["items"] = data["items"] + tmp["items"]
+            else:
+                data = requests.get(url).json()
+            
+        self.db.update_local_db(data)
         
     def get_application_info(self, package, is_exact = False):
         """Get informations about the package"""
