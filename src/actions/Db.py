@@ -22,6 +22,12 @@ class Db(AppCenter):
         data[package_info["name"]]["version"] = package_info["file_download"]
         json.dump(data, open(self.installed_db_file, 'w'))
         
+    def remove_package(self, package):
+        """Remove the app of local db"""
+        data = self.load_installed_db()
+        data.pop(package)
+        json.dump(data, open(self.installed_db_file, 'w'))
+        
     def search_package(self, package_name):
         """Search packeg in installed apps"""
         data = self.load_installed_db()
@@ -40,6 +46,7 @@ class Db(AppCenter):
             data = {}
 
         return data
+        
         
     def update_local_db(self, data):
         """Update the local db"""

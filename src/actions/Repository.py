@@ -65,10 +65,7 @@ class Repository(AppCenter):
         items = self.get_application_info(package)
         if items and len(items) > 0:
             for info in items:
-                print "\n\x1b[6;30;42m" + self.translate("details_package", {"package": info["name"]}) + "\x1b[0m"
-                for i in info:
-                    if type(info[i]) != list:
-                        print i, ":", info[i]
+                self.print_info(info)
         else:
             print "\033[93m" + self.translate("package_not_found") + "\033[0m"
             

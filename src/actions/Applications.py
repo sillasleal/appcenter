@@ -96,14 +96,48 @@ class Applications(AppCenter):
             os.system("chmod +x %s" % file_dest)
             self.gen_sym_link(file_dest, result["info"]["name"].lower())
             self.add_bin_to_path()
-            self.gen_desktop_link(file_dest)
+            self.gen_desktop_link(result["info"])
             self.db.insert_package(result["info"])
             print self.translate("success_install")
+            print self.translate("open_app")
+            os.system(file_dest)
         else:
             print self.translate("filed_install")
         
-    def remove(self):
-        """"""
+    def remove(self, package):
+        """Remove the app of system"""
+        packages = self.db.load_installed_db()
+        
+        if package in packages:
+            print self.translate("removing_app")
+            file_dest = Directories.INSTALL_DIR + "/" + package + ".AppImage"
+            packages.pop(package)
+            os.system("rm -f %s" % file_dest)
+            os.system("rm -f %s" % Directories.INSTALL_BIN + "/" + package.lower())
+            os.system("rm -f %s/.local/share/applications/appimagekit-%s.desktop" % (os.environ["HOME"], package.lower()))
+            print self.translate("removing_app_success")
+            self.db.remove_package(package)
+            
+        else:
+            print self.translate("package_not_installed")
+            
+    def find(self, package):
+        """Search packeg in system"""
+        
+        
+    def installeds(self, package):
+        """List the instaled packages"""
+        print self.translate("listing_packages")
+        
+        items = self.db.load_installed_db()
+        if items and len(items) > 0:
+            for name in items:
+                info = items[name]
+#                print info
+                self.print_info(info)
+        else:
+            print "\033[93m" + self.translate("no_installeds_packages") + "\033[0m"
+        
         
     def add_bin_to_path(self):
         """Add bin folder to path"""

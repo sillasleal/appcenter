@@ -10,5 +10,9 @@
     "download_package": "Start the download of package '{package}'",
     "package_installed": "The package already is installed in the system",
     "use_correct_name": "Use the correct name to install the package",
-    "searching_package": "Searching the package {package}"
+    "searching_package": "Searching the package {package}",
+    "package_not_installed": "Package not installed",
+    "removing_app": "Removing the app",
+    "removing_app_success": "Package uninstalled",
+    "open_app": "Opening the application"
 }

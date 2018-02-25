@@ -49,3 +49,10 @@ class AppCenter:
         """Create a directory on the system"""
         if not os.path.exists(directory):
             os.system("mkdir -p %s" % directory)
+            
+    def print_info(self, package):
+        """Print the package info"""
+        print "\n\x1b[6;30;42m" + self.translate("details_package", {"package": package["name"]}) + "\x1b[0m"
+        for i in package:
+            if type(package[i]) != list:
+                print i, ":", package[i]

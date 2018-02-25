@@ -37,8 +37,9 @@ class Cmd(AppCenter):
             
         actions = {
             "find": self.repository.show_application_info,
-#            "download": self.repository.download,
+            "find-package": self.applications.find,
             "install": self.applications.install,
+            "installeds": self.applications.installeds,
             "remove": self.applications.remove
         }
         
