@@ -10,6 +10,8 @@ from definitions.Directories import Directories
 from actions.Repository import Repository
 from actions.Db import Db
 
+from packages.Git import Git
+
 class Applications(AppCenter):
     """
     Author 
@@ -31,15 +33,16 @@ class Applications(AppCenter):
         """Download a package"""
         print self.translate("download_package", {"package": package["name"]})
         info = False
-
+        
         for data in package['links']:
             if data['type'] == 'Install' or data['type'] == 'Download':
-                info = {"file": "", "info": {}}
                 page = requests.get(data['url'])
                 webpage = html.fromstring(page.content)
-
+                
                 for link in webpage.xpath('//a/@href'):
-                    if (data['url'] + "/download" in link or "/releases/download" in link) and ".AppImage" in link:
+                    
+                    if (data['url'] + "/download" in link or "/releases/download" in link) and ".appimage" in link.lower():
+                        info = {"file": "", "info": {}}
                         link_download =  "https://github.com/%s" % link
                         info["file"] = link.split('/')[-1]
                         info["info"] = package
@@ -64,6 +67,7 @@ class Applications(AppCenter):
                                     sys.stdout.flush()
                         if not version:
                             break
+                        return info
         return info
         
     
@@ -73,14 +77,16 @@ class Applications(AppCenter):
             print self.translate("package_installed")
             return
         
+        print self.translate("searching_package", {"package": package})
         package_info = self.repository.get_application_info(package, True)
+        
         if not package_info:
             print "\033[93m" + self.translate("package_not_found") + "\033[0m"
             print "\033[93m" + self.translate("use_correct_name") + "\033[0m"
             return
         
         result = self.download(package_info, version, Directories.TMP_DIR)
-
+        
         if result:
             print "Download concluido"
             self.create_dir(Directories.INSTALL_DIR)

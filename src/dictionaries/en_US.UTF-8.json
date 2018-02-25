@@ -6,8 +6,9 @@
     "success_install": "Success install",
     "details_package": "Details of package",
     "get_package_and_info": "Searching and get informations about package ",
-    "get_package_info": "Get information aboute package '{package}'",
+    "get_package_info": "Get information about package '{package}'",
     "download_package": "Start the download of package '{package}'",
     "package_installed": "The package already is installed in the system",
-    "use_correct_name": "Use the correct name to install the package"
+    "use_correct_name": "Use the correct name to install the package",
+    "searching_package": "Searching the package {package}"
 }
