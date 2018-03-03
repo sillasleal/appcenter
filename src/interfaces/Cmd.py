@@ -1,4 +1,5 @@
 import sys
+#import readline
 
 from geral.AppCenter import AppCenter
 from actions.Repository import Repository
@@ -20,10 +21,20 @@ class Cmd(AppCenter):
         AppCenter.__init__(self)
         self.applications = Applications()
         self.repository = Repository()
+    
+    def completer(self, text, state):
+        """Autocomplete of params"""
+        options = [i for i in commands if i.startswith(text)]
+        if state < len(options):
+            return options[state]
+        else:
+            return None
         
     def start(self):
         """Start the app"""
 #        args = self.get_list_by_args()
+#        readline.parse_and_bind("tab: complete")
+#        readline.set_completer(selfcompleter)
         if len(sys.argv) < 2:
             print self.translate("invalid_params")
             exit(100)

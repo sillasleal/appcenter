@@ -1,2 +1,3 @@
 request
 lxml
+readline
